@@ -4,8 +4,8 @@ package main.java;
  * Classe que representa um Usuário no sistema de gamificação.
  */
 public class Usuario {
-    private int id;
-    private String nome;
+    private final int id;
+    private final String nome;
 
     public Usuario(int id, String nome) {
         this.id = id;

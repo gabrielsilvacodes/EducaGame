@@ -1,19 +1,21 @@
 package main.java;
 
-/**
- * Classe que representa um desafio no sistema de gamificação.
- */
 public class Desafio {
     private int id;
     private String titulo;
     private String descricao;
     private int pontos;
+    private Disciplina disciplina;
 
-    public Desafio(int id, String titulo, String descricao, int pontos) {
+    public Desafio(int id, String titulo, String descricao, int pontos, Disciplina disciplina) {
+        if (pontos <= 0 || disciplina == null) {
+            throw new IllegalArgumentException("Pontos devem ser positivos e disciplina não pode ser nula.");
+        }
         this.id = id;
         this.titulo = titulo;
         this.descricao = descricao;
         this.pontos = pontos;
+        this.disciplina = disciplina;
     }
 
     public int getId() {
@@ -32,19 +34,7 @@ public class Desafio {
         return pontos;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
-    }
-
-    public void setDescricao(String descricao) {
-        this.descricao = descricao;
-    }
-
-    public void setPontos(int pontos) {
-        this.pontos = pontos;
+    public Disciplina getDisciplina() {
+        return disciplina;
     }
 }

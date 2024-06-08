@@ -7,10 +7,10 @@ import java.util.List;
  * Classe que representa um Participante no sistema de gamificação.
  */
 public class Participante implements Desafiavel {
-    private int id;
-    private String nome;
-    private List<Desafio> desafiosCompletos = new ArrayList<>();
-    private List<Recompensa> recompensas = new ArrayList<>();
+    private final int id;
+    private final String nome;
+    private final List<Desafio> desafiosCompletos = new ArrayList<>();
+    private final List<Recompensa> recompensas = new ArrayList<>();
 
     public Participante(int id, String nome) {
         this.id = id;
@@ -20,7 +20,6 @@ public class Participante implements Desafiavel {
     @Override
     public void completarDesafio(Desafio desafio) {
         desafiosCompletos.add(desafio);
-        // Lógica adicional para completar desafio
     }
 
     public void adicionarRecompensa(Recompensa recompensa) {
@@ -43,13 +42,27 @@ public class Participante implements Desafiavel {
         return id;
     }
 
-    // Método adicional para listar todos os desafios do participante
-    public List<Desafio> getDesafios() {
-        return desafiosCompletos;
+    public void aceitarDesafio(Desafio desafio) {
+        completarDesafio(desafio);
+        Recompensa recompensa = new Recompensa(desafio.getId(), "Recompensa por completar o desafio: " + desafio.getTitulo(), calcularTipoRecompensa(desafio.getPontos()));
+        adicionarRecompensa(recompensa);
     }
 
-    // Método para aceitar um desafio
-    public void aceitarDesafio(Desafio desafio) {
-        desafiosCompletos.add(desafio);
+    private TipoRecompensa calcularTipoRecompensa(int pontos) {
+        if (pontos < 50) {
+            return TipoRecompensa.BRONZE;
+        } else if (pontos < 100) {
+            return TipoRecompensa.PRATA;
+        } else {
+            return TipoRecompensa.OURO;
+        }
+    }
+
+    public void removerDesafio(Desafio desafio) {
+        desafiosCompletos.remove(desafio);
+    }
+
+    public void removerRecompensa(Recompensa recompensa) {
+        recompensas.remove(recompensa);
     }
 }

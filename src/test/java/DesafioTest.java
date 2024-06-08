@@ -1,54 +1,28 @@
 package test.java;
 
-import main.java.*;
-import org.junit.jupiter.api.BeforeEach;
+import main.java.Desafio;
+import main.java.Disciplina;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class DesafioTest {
-    private Desafio desafio;
-
-    @BeforeEach
-    void setUp() {
-        desafio = new Desafio(1, "Desafio 1", "Descrição do Desafio 1", 100);
-    }
-
+public class DesafioTest {
     @Test
-    void testGetId() {
+    public void testGetters() {
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Disciplina de Matemática");
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, disciplina);
         assertEquals(1, desafio.getId());
-    }
-
-    @Test
-    void testGetTitulo() {
         assertEquals("Desafio 1", desafio.getTitulo());
-    }
-
-    @Test
-    void testGetDescricao() {
-        assertEquals("Descrição do Desafio 1", desafio.getDescricao());
-    }
-
-    @Test
-    void testGetPontos() {
+        assertEquals("Descrição 1", desafio.getDescricao());
         assertEquals(100, desafio.getPontos());
+        assertEquals(disciplina, desafio.getDisciplina());
     }
 
     @Test
-    void testSetTitulo() {
-        desafio.setTitulo("Novo Título");
-        assertEquals("Novo Título", desafio.getTitulo());
-    }
-
-    @Test
-    void testSetDescricao() {
-        desafio.setDescricao("Nova Descrição");
-        assertEquals("Nova Descrição", desafio.getDescricao());
-    }
-
-    @Test
-    void testSetPontos() {
-        desafio.setPontos(200);
-        assertEquals(200, desafio.getPontos());
+    public void testConstrutorInvalido() {
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            new Desafio(1, "Desafio 1", "Descrição 1", -100, null);
+        });
+        assertEquals("Pontos devem ser positivos e disciplina não pode ser nula.", exception.getMessage());
     }
 }

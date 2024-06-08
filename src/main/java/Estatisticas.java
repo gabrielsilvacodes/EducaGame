@@ -4,7 +4,7 @@ package main.java;
  * Classe que calcula e armazena estatísticas do sistema de gamificação.
  */
 public class Estatisticas {
-    private SistemaGamificacao sistema;
+    private final SistemaGamificacao sistema;
 
     public Estatisticas(SistemaGamificacao sistema) {
         this.sistema = sistema;

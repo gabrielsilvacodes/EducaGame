@@ -7,10 +7,10 @@ import java.util.List;
  * Classe que representa uma Disciplina no sistema de gamificação.
  */
 public class Disciplina {
-    private int id;
-    private String nome;
-    private String descricao;
-    private List<Desafio> desafios = new ArrayList<>();
+    private final int id;
+    private final String nome;
+    private final String descricao;
+    private final List<Desafio> desafios = new ArrayList<>();
 
     public Disciplina(int id, String nome, String descricao) {
         this.id = id;
@@ -36,5 +36,9 @@ public class Disciplina {
 
     public List<Desafio> getDesafios() {
         return desafios;
+    }
+
+    public void removerDesafio(Desafio desafio) {
+        desafios.remove(desafio);
     }
 }

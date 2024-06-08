@@ -6,32 +6,53 @@ import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class SistemaGamificacaoTest {
+public class SistemaGamificacaoTest {
     private SistemaGamificacao sistema;
 
     @BeforeEach
-    void setUp() {
+    public void setUp() {
         sistema = new SistemaGamificacao();
     }
 
     @Test
-    void testAdicionarDesafio() {
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição do Desafio 1", 100);
+    public void testAdicionarDesafio() {
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Disciplina de Matemática"));
         sistema.adicionarDesafio(desafio);
         assertTrue(sistema.getDesafios().contains(desafio));
     }
 
     @Test
-    void testAdicionarRecompensa() {
+    public void testAdicionarRecompensa() {
         Recompensa recompensa = new Recompensa(1, "Recompensa 1", TipoRecompensa.BRONZE);
         sistema.adicionarRecompensa(recompensa);
         assertTrue(sistema.getRecompensas().contains(recompensa));
     }
 
     @Test
-    void testAdicionarParticipante() {
-        Participante participante = new Participante(1, "Participante 1");
+    public void testAdicionarParticipante() {
+        Participante participante = new Participante(1, "João");
         sistema.adicionarParticipante(participante);
         assertTrue(sistema.getParticipantes().contains(participante));
+    }
+
+    @Test
+    public void testGetDesafios() {
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Disciplina de Matemática"));
+        sistema.adicionarDesafio(desafio);
+        assertEquals(1, sistema.getDesafios().size());
+    }
+
+    @Test
+    public void testGetRecompensas() {
+        Recompensa recompensa = new Recompensa(1, "Recompensa 1", TipoRecompensa.BRONZE);
+        sistema.adicionarRecompensa(recompensa);
+        assertEquals(1, sistema.getRecompensas().size());
+    }
+
+    @Test
+    public void testGetParticipantes() {
+        Participante participante = new Participante(1, "João");
+        sistema.adicionarParticipante(participante);
+        assertEquals(1, sistema.getParticipantes().size());
     }
 }
