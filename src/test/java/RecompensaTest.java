@@ -14,6 +14,6 @@ public class RecompensaTest {
 
         assertEquals(1, recompensa.getId());
         assertEquals("Recompensa 1", recompensa.getDescricao());
-        assertEquals(TipoRecompensa.BRONZE, recompensa.getTipo())
+        assertEquals(TipoRecompensa.BRONZE, recompensa.getTipo());
     }
 }
