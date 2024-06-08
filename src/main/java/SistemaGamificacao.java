@@ -3,11 +3,14 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe principal do sistema de gamificação.
+ */
 public class SistemaGamificacao {
-    private final List<Desafio> desafios = new ArrayList<>();
-    private final List<Recompensa> recompensas = new ArrayList<>();
-    private final List<Participante> participantes = new ArrayList<>();
-    private final List<Disciplina> disciplinas = new ArrayList<>();
+    private List<Desafio> desafios = new ArrayList<>();
+    private List<Recompensa> recompensas = new ArrayList<>();
+    private List<Participante> participantes = new ArrayList<>();
+    private List<Disciplina> disciplinas = new ArrayList<>();
 
     public void adicionarDesafio(Desafio desafio) {
         desafios.add(desafio);

@@ -15,8 +15,17 @@ public class SistemaGamificacaoTest {
     }
 
     @Test
+    public void testAdicionarDisciplina() {
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Descrição de Matemática");
+        sistema.adicionarDisciplina(disciplina);
+        assertTrue(sistema.getDisciplinas().contains(disciplina));
+    }
+
+    @Test
     public void testAdicionarDesafio() {
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Descrição de Matemática");
+        sistema.adicionarDisciplina(disciplina);
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, disciplina);
         sistema.adicionarDesafio(desafio);
         assertTrue(sistema.getDesafios().contains(desafio));
     }
@@ -33,12 +42,5 @@ public class SistemaGamificacaoTest {
         Participante participante = new Participante(1, "Participante 1");
         sistema.adicionarParticipante(participante);
         assertTrue(sistema.getParticipantes().contains(participante));
-    }
-
-    @Test
-    public void testAdicionarDisciplina() {
-        Disciplina disciplina = new Disciplina(1, "Matemática", "Descrição");
-        sistema.adicionarDisciplina(disciplina);
-        assertTrue(sistema.getDisciplinas().contains(disciplina));
     }
 }

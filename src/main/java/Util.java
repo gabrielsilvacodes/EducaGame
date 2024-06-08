@@ -3,6 +3,7 @@ package main.java;
 import java.util.Scanner;
 
 public class Util {
+
     public static void exibirMenuPrincipal(SistemaGamificacao sistema, Scanner scanner) {
         while (true) {
             System.out.println("Selecione uma opção:");
@@ -32,10 +33,10 @@ public class Util {
     public static void exibirMenuProfessor(SistemaGamificacao sistema, Scanner scanner) {
         while (true) {
             System.out.println("Menu Professor:");
-            System.out.println("1. Adicionar Desafio");
-            System.out.println("2. Adicionar Recompensa");
-            System.out.println("3. Adicionar Participante");
-            System.out.println("4. Adicionar Disciplina");
+            System.out.println("1. Adicionar Disciplina");
+            System.out.println("2. Adicionar Desafio");
+            System.out.println("3. Adicionar Recompensa");
+            System.out.println("4. Adicionar Participante");
             System.out.println("5. Visualizar Estatísticas do Sistema");
             System.out.println("0. Voltar ao Menu Principal");
 
@@ -44,6 +45,19 @@ public class Util {
 
             switch (opcao) {
                 case 1:
+                    System.out.println("Adicionar Disciplina:");
+                    System.out.print("ID: ");
+                    int idDisciplina = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nomeDisciplina = scanner.nextLine();
+                    System.out.print("Descrição: ");
+                    String descricaoDisciplina = scanner.nextLine();
+                    Disciplina disciplina = new Disciplina(idDisciplina, nomeDisciplina, descricaoDisciplina);
+                    sistema.adicionarDisciplina(disciplina);
+                    System.out.println("Disciplina adicionada com sucesso!");
+                    break;
+                case 2:
                     System.out.println("Adicionar Desafio:");
                     System.out.print("ID: ");
                     int idDesafio = scanner.nextInt();
@@ -56,21 +70,21 @@ public class Util {
                     int pontos = scanner.nextInt();
                     scanner.nextLine();
                     System.out.print("ID da Disciplina: ");
-                    int idDisciplina = scanner.nextInt();
+                    int idDisciplinaDesafio = scanner.nextInt();
                     scanner.nextLine();
-                    Disciplina disciplina = sistema.getDisciplinas().stream()
-                            .filter(d -> d.getId() == idDisciplina)
+                    Disciplina disciplinaDesafio = sistema.getDisciplinas().stream()
+                            .filter(d -> d.getId() == idDisciplinaDesafio)
                             .findFirst()
                             .orElse(null);
-                    if (disciplina == null) {
+                    if (disciplinaDesafio == null) {
                         System.out.println("Disciplina não encontrada.");
                         break;
                     }
-                    Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplina);
+                    Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplinaDesafio);
                     sistema.adicionarDesafio(desafio);
                     System.out.println("Desafio adicionado com sucesso!");
                     break;
-                case 2:
+                case 3:
                     System.out.println("Adicionar Recompensa:");
                     System.out.print("ID: ");
                     int idRecompensa = scanner.nextInt();
@@ -83,7 +97,7 @@ public class Util {
                     sistema.adicionarRecompensa(recompensa);
                     System.out.println("Recompensa adicionada com sucesso!");
                     break;
-                case 3:
+                case 4:
                     System.out.println("Adicionar Participante:");
                     System.out.print("ID: ");
                     int idParticipante = scanner.nextInt();
@@ -93,19 +107,6 @@ public class Util {
                     Participante participante = new Participante(idParticipante, nome);
                     sistema.adicionarParticipante(participante);
                     System.out.println("Participante adicionado com sucesso!");
-                    break;
-                case 4:
-                    System.out.println("Adicionar Disciplina:");
-                    System.out.print("ID: ");
-                    int idDisciplinaNovo = scanner.nextInt();
-                    scanner.nextLine();
-                    System.out.print("Nome: ");
-                    String nomeDisciplina = scanner.nextLine();
-                    System.out.print("Descrição: ");
-                    String descricaoDisciplina = scanner.nextLine();
-                    Disciplina novaDisciplina = new Disciplina(idDisciplinaNovo, nomeDisciplina, descricaoDisciplina);
-                    sistema.adicionarDisciplina(novaDisciplina);
-                    System.out.println("Disciplina adicionada com sucesso!");
                     break;
                 case 5:
                     System.out.println("Visualizar Estatísticas do Sistema:");

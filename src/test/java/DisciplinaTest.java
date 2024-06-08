@@ -1,30 +1,38 @@
 package test.java;
 
-import main.java.Disciplina;
-import main.java.Desafio;
+import main.java.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class DisciplinaTest {
+    private Disciplina disciplina;
+
+    @BeforeEach
+    public void setup() {
+        disciplina = new Disciplina(1, "Matemática", "Descrição de Matemática");
+    }
+
     @Test
-    public void testGetters() {
-        Disciplina disciplina = new Disciplina(1, "Matemática", "Disciplina de Matemática");
+    public void testGetId() {
         assertEquals(1, disciplina.getId());
+    }
+
+    @Test
+    public void testGetNome() {
         assertEquals("Matemática", disciplina.getNome());
-        assertEquals("Disciplina de Matemática", disciplina.getDescricao());
+    }
+
+    @Test
+    public void testGetDescricao() {
+        assertEquals("Descrição de Matemática", disciplina.getDescricao());
     }
 
     @Test
     public void testAdicionarDesafio() {
-        Disciplina disciplina = new Disciplina(1, "Matemática", "Disciplina de Matemática");
         Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, disciplina);
         disciplina.adicionarDesafio(desafio);
-        List<Desafio> desafios = disciplina.getDesafios();
-        assertEquals(1, desafios.size());
-        assertTrue(desafios.contains(desafio));
+        assertTrue(disciplina.getDesafios().contains(desafio));
     }
 }

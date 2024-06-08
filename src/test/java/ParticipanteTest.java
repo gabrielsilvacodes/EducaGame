@@ -16,7 +16,8 @@ public class ParticipanteTest {
 
     @Test
     public void testCompletarDesafio() {
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Descrição de Matemática");
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, disciplina);
         participante.completarDesafio(desafio);
         assertTrue(participante.getDesafiosCompletos().contains(desafio));
     }

@@ -1,5 +1,8 @@
 package main.java;
 
+/**
+ * Classe que representa um desafio no sistema de gamificação.
+ */
 public class Desafio {
     private final int id;
     private final String titulo;
@@ -8,7 +11,7 @@ public class Desafio {
     private final Disciplina disciplina;
 
     public Desafio(int id, String titulo, String descricao, int pontos, Disciplina disciplina) {
-        if (pontos <= 0 || disciplina == null) {
+        if (pontos < 0 || disciplina == null) {
             throw new IllegalArgumentException("Pontos devem ser positivos e disciplina não pode ser nula.");
         }
         this.id = id;
