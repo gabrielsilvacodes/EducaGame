@@ -3,9 +3,6 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Classe que representa uma Disciplina no sistema de gamificação.
- */
 public class Disciplina {
     private final int id;
     private final String nome;

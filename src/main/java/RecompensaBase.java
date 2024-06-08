@@ -1,8 +1,5 @@
 package main.java;
 
-/**
- * Classe base para recompensas no sistema de gamificação.
- */
 public abstract class RecompensaBase {
     private final int id;
     private final String descricao;

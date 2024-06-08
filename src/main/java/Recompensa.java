@@ -1,8 +1,5 @@
 package main.java;
 
-/**
- * Classe que representa uma Recompensa no sistema de gamificação.
- */
 public class Recompensa extends RecompensaBase {
     private final TipoRecompensa tipo;
 

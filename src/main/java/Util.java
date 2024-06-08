@@ -10,7 +10,8 @@ public class Util {
             System.out.println("2. Menu Participante");
             System.out.println("0. Sair");
 
-            int opcao = lerOpcao(scanner);
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (opcao) {
                 case 1:
@@ -31,75 +32,80 @@ public class Util {
     public static void exibirMenuProfessor(SistemaGamificacao sistema, Scanner scanner) {
         while (true) {
             System.out.println("Menu Professor:");
-            System.out.println("1. Adicionar Disciplina");
-            System.out.println("2. Adicionar Desafio");
-            System.out.println("3. Adicionar Recompensa");
-            System.out.println("4. Adicionar Participante");
+            System.out.println("1. Adicionar Desafio");
+            System.out.println("2. Adicionar Recompensa");
+            System.out.println("3. Adicionar Participante");
+            System.out.println("4. Adicionar Disciplina");
             System.out.println("5. Visualizar Estatísticas do Sistema");
             System.out.println("0. Voltar ao Menu Principal");
 
-            int opcao = lerOpcao(scanner);
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
             switch (opcao) {
                 case 1:
-                    System.out.println("Adicionar Disciplina:");
-                    int idDisciplina = lerInt(scanner, "ID");
-                    System.out.print("Nome: ");
-                    String nomeDisciplina = scanner.nextLine();
-                    System.out.print("Descrição: ");
-                    String descricaoDisciplina = scanner.nextLine();
-                    Disciplina disciplina = new Disciplina(idDisciplina, nomeDisciplina, descricaoDisciplina);
-                    sistema.adicionarDisciplina(disciplina);
-                    System.out.println("Disciplina adicionada com sucesso!");
-                    break;
-                case 2:
-                    if (sistema.getDisciplinas().isEmpty()) {
-                        System.out.println("Nenhuma disciplina encontrada. Adicione uma disciplina primeiro.");
-                        break;
-                    }
                     System.out.println("Adicionar Desafio:");
-                    int idDesafio = lerInt(scanner, "ID");
+                    System.out.print("ID: ");
+                    int idDesafio = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.print("Título: ");
                     String titulo = scanner.nextLine();
                     System.out.print("Descrição: ");
                     String descricao = scanner.nextLine();
-                    int pontos = lerInt(scanner, "Pontos");
-                    System.out.println("Selecione uma Disciplina pelo ID:");
-                    for (Disciplina d : sistema.getDisciplinas()) {
-                        System.out.println(d.getId() + ". " + d.getNome());
-                    }
-                    int idDisc = lerInt(scanner, "Disciplina ID");
-                    Disciplina disciplinaEscolhida = sistema.getDisciplinas().stream()
-                            .filter(d -> d.getId() == idDisc)
+                    System.out.print("Pontos: ");
+                    int pontos = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("ID da Disciplina: ");
+                    int idDisciplina = scanner.nextInt();
+                    scanner.nextLine();
+                    Disciplina disciplina = sistema.getDisciplinas().stream()
+                            .filter(d -> d.getId() == idDisciplina)
                             .findFirst()
                             .orElse(null);
-                    if (disciplinaEscolhida == null) {
+                    if (disciplina == null) {
                         System.out.println("Disciplina não encontrada.");
                         break;
                     }
-                    Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplinaEscolhida);
+                    Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplina);
                     sistema.adicionarDesafio(desafio);
-                    disciplinaEscolhida.adicionarDesafio(desafio);
                     System.out.println("Desafio adicionado com sucesso!");
                     break;
-                case 3:
+                case 2:
                     System.out.println("Adicionar Recompensa:");
-                    int idRecompensa = lerInt(scanner, "ID");
+                    System.out.print("ID: ");
+                    int idRecompensa = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.print("Descrição: ");
                     String descricaoRecompensa = scanner.nextLine();
-                    TipoRecompensa tipo = lerTipoRecompensa(scanner);
+                    System.out.print("Tipo (BRONZE, PRATA, OURO): ");
+                    TipoRecompensa tipo = TipoRecompensa.valueOf(scanner.nextLine().toUpperCase());
                     Recompensa recompensa = new Recompensa(idRecompensa, descricaoRecompensa, tipo);
                     sistema.adicionarRecompensa(recompensa);
                     System.out.println("Recompensa adicionada com sucesso!");
                     break;
-                case 4:
+                case 3:
                     System.out.println("Adicionar Participante:");
-                    int idParticipante = lerInt(scanner, "ID");
+                    System.out.print("ID: ");
+                    int idParticipante = scanner.nextInt();
+                    scanner.nextLine();
                     System.out.print("Nome: ");
                     String nome = scanner.nextLine();
                     Participante participante = new Participante(idParticipante, nome);
                     sistema.adicionarParticipante(participante);
                     System.out.println("Participante adicionado com sucesso!");
+                    break;
+                case 4:
+                    System.out.println("Adicionar Disciplina:");
+                    System.out.print("ID: ");
+                    int idDisciplinaNovo = scanner.nextInt();
+                    scanner.nextLine();
+                    System.out.print("Nome: ");
+                    String nomeDisciplina = scanner.nextLine();
+                    System.out.print("Descrição: ");
+                    String descricaoDisciplina = scanner.nextLine();
+                    Disciplina novaDisciplina = new Disciplina(idDisciplinaNovo, nomeDisciplina, descricaoDisciplina);
+                    sistema.adicionarDisciplina(novaDisciplina);
+                    System.out.println("Disciplina adicionada com sucesso!");
                     break;
                 case 5:
                     System.out.println("Visualizar Estatísticas do Sistema:");
@@ -115,7 +121,9 @@ public class Util {
 
     public static void exibirMenuParticipante(SistemaGamificacao sistema, Scanner scanner) {
         System.out.print("Digite o ID do participante: ");
-        int idParticipante = lerInt(scanner, "ID");
+        int idParticipante = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
         Participante participante = sistema.getParticipantes().stream()
                 .filter(p -> p.getId() == idParticipante)
                 .findFirst()
@@ -133,7 +141,9 @@ public class Util {
             System.out.println("3. Aceitar Desafio");
             System.out.println("0. Voltar ao Menu Principal");
 
-            int opcao = lerOpcao(scanner);
+            int opcao = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
+
             switch (opcao) {
                 case 1:
                     System.out.println("Desafios Completos:");
@@ -149,7 +159,8 @@ public class Util {
                     break;
                 case 3:
                     System.out.println("Digite o ID do desafio a ser aceito: ");
-                    int idDesafio = lerInt(scanner, "ID do Desafio");
+                    int idDesafio = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline
                     Desafio desafio = sistema.getDesafios().stream()
                             .filter(d -> d.getId() == idDesafio)
                             .findFirst()
@@ -157,9 +168,6 @@ public class Util {
                     if (desafio != null) {
                         participante.aceitarDesafio(desafio);
                         System.out.println("Desafio aceito com sucesso!");
-                        // Exibir a recompensa recebida após aceitar o desafio
-                        Recompensa recompensa = participante.getRecompensas().get(participante.getRecompensas().size() - 1);
-                        System.out.println("Recompensa recebida: " + recompensa.getDescricao() + " (" + recompensa.getTipo() + ")");
                     } else {
                         System.out.println("Desafio não encontrado.");
                     }
@@ -168,36 +176,6 @@ public class Util {
                     return;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
-            }
-        }
-    }
-
-    private static int lerOpcao(Scanner scanner) {
-        try {
-            return Integer.parseInt(scanner.nextLine());
-        } catch (NumberFormatException e) {
-            System.out.println("Entrada inválida. Digite um número.");
-            return -1;
-        }
-    }
-
-    private static int lerInt(Scanner scanner, String campo) {
-        while (true) {
-            System.out.print(campo + ": ");
-            try {
-                return Integer.parseInt(scanner.nextLine());
-            } catch (NumberFormatException e) {
-                System.out.println("Entrada inválida. Digite um número inteiro.");
-            }
-        }
-    }
-
-    private static TipoRecompensa lerTipoRecompensa(Scanner scanner) {
-        while (true) {
-            try {
-                return TipoRecompensa.valueOf(scanner.nextLine().toUpperCase());
-            } catch (IllegalArgumentException e) {
-                System.out.println("Tipo inválido. Digite BRONZE, PRATA ou OURO.");
             }
         }
     }

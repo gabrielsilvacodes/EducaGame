@@ -3,9 +3,6 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Classe que representa um Participante no sistema de gamificação.
- */
 public class Participante implements Desafiavel {
     private final int id;
     private final String nome;

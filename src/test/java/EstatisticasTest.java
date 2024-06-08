@@ -11,34 +11,26 @@ public class EstatisticasTest {
     private Estatisticas estatisticas;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         sistema = new SistemaGamificacao();
         estatisticas = new Estatisticas(sistema);
-
-        Disciplina disciplina = new Disciplina(1, "Matemática", "Disciplina de Matemática");
-        Desafio desafio1 = new Desafio(1, "Desafio 1", "Descrição 1", 100, disciplina);
-        Desafio desafio2 = new Desafio(2, "Desafio 2", "Descrição 2", 200, disciplina);
-
-        sistema.adicionarDesafio(desafio1);
-        sistema.adicionarDesafio(desafio2);
-
-        Participante participante1 = new Participante(1, "João");
-        Participante participante2 = new Participante(2, "Maria");
-
-        sistema.adicionarParticipante(participante1);
-        sistema.adicionarParticipante(participante2);
-
-        participante1.completarDesafio(desafio1);
-        participante2.completarDesafio(desafio2);
     }
 
     @Test
     public void testGetTotalDesafiosCompletos() {
-        assertEquals(2, estatisticas.getTotalDesafiosCompletos());
+        Participante participante = new Participante(1, "Participante 1");
+        sistema.adicionarParticipante(participante);
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
+        participante.completarDesafio(desafio);
+        assertEquals(1, estatisticas.getTotalDesafiosCompletos());
     }
 
     @Test
     public void testGetTotalPontos() {
-        assertEquals(300, estatisticas.getTotalPontos());
+        Participante participante = new Participante(1, "Participante 1");
+        sistema.adicionarParticipante(participante);
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
+        participante.completarDesafio(desafio);
+        assertEquals(100, estatisticas.getTotalPontos());
     }
 }

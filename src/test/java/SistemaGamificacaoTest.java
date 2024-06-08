@@ -10,13 +10,13 @@ public class SistemaGamificacaoTest {
     private SistemaGamificacao sistema;
 
     @BeforeEach
-    public void setUp() {
+    public void setup() {
         sistema = new SistemaGamificacao();
     }
 
     @Test
     public void testAdicionarDesafio() {
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Disciplina de Matemática"));
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
         sistema.adicionarDesafio(desafio);
         assertTrue(sistema.getDesafios().contains(desafio));
     }
@@ -30,29 +30,15 @@ public class SistemaGamificacaoTest {
 
     @Test
     public void testAdicionarParticipante() {
-        Participante participante = new Participante(1, "João");
+        Participante participante = new Participante(1, "Participante 1");
         sistema.adicionarParticipante(participante);
         assertTrue(sistema.getParticipantes().contains(participante));
     }
 
     @Test
-    public void testGetDesafios() {
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Disciplina de Matemática"));
-        sistema.adicionarDesafio(desafio);
-        assertEquals(1, sistema.getDesafios().size());
-    }
-
-    @Test
-    public void testGetRecompensas() {
-        Recompensa recompensa = new Recompensa(1, "Recompensa 1", TipoRecompensa.BRONZE);
-        sistema.adicionarRecompensa(recompensa);
-        assertEquals(1, sistema.getRecompensas().size());
-    }
-
-    @Test
-    public void testGetParticipantes() {
-        Participante participante = new Participante(1, "João");
-        sistema.adicionarParticipante(participante);
-        assertEquals(1, sistema.getParticipantes().size());
+    public void testAdicionarDisciplina() {
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Descrição");
+        sistema.adicionarDisciplina(disciplina);
+        assertTrue(sistema.getDisciplinas().contains(disciplina));
     }
 }
