@@ -20,6 +20,7 @@ public class Participante implements Desafiavel {
     @Override
     public void completarDesafio(Desafio desafio) {
         desafiosCompletos.add(desafio);
+        // Lógica adicional para completar desafio
     }
 
     public void adicionarRecompensa(Recompensa recompensa) {
@@ -42,27 +43,13 @@ public class Participante implements Desafiavel {
         return id;
     }
 
+    // Método adicional para listar todos os desafios do participante
+    public List<Desafio> getDesafios() {
+        return desafiosCompletos;
+    }
+
+    // Método para aceitar um desafio
     public void aceitarDesafio(Desafio desafio) {
-        completarDesafio(desafio);
-        Recompensa recompensa = new Recompensa(desafio.getId(), "Recompensa por completar o desafio: " + desafio.getTitulo(), calcularTipoRecompensa(desafio.getPontos()));
-        adicionarRecompensa(recompensa);
-    }
-
-    private TipoRecompensa calcularTipoRecompensa(int pontos) {
-        if (pontos < 50) {
-            return TipoRecompensa.BRONZE;
-        } else if (pontos < 100) {
-            return TipoRecompensa.PRATA;
-        } else {
-            return TipoRecompensa.OURO;
-        }
-    }
-
-    public void removerDesafio(Desafio desafio) {
-        desafiosCompletos.remove(desafio);
-    }
-
-    public void removerRecompensa(Recompensa recompensa) {
-        recompensas.remove(recompensa);
+        desafiosCompletos.add(desafio);
     }
 }

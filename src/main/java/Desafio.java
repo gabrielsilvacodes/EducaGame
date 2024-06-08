@@ -1,11 +1,11 @@
 package main.java;
 
 public class Desafio {
-    private int id;
-    private String titulo;
-    private String descricao;
-    private int pontos;
-    private Disciplina disciplina;
+    private final int id;
+    private final String titulo;
+    private final String descricao;
+    private final int pontos;
+    private final Disciplina disciplina;
 
     public Desafio(int id, String titulo, String descricao, int pontos, Disciplina disciplina) {
         if (pontos <= 0 || disciplina == null) {

@@ -37,8 +37,4 @@ public class Disciplina {
     public List<Desafio> getDesafios() {
         return desafios;
     }
-
-    public void removerDesafio(Desafio desafio) {
-        desafios.remove(desafio);
-    }
 }

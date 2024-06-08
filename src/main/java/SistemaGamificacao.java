@@ -24,6 +24,10 @@ public class SistemaGamificacao {
         participantes.add(participante);
     }
 
+    public void adicionarDisciplina(Disciplina disciplina) {
+        disciplinas.add(disciplina);
+    }
+
     public List<Desafio> getDesafios() {
         return desafios;
     }
@@ -36,27 +40,9 @@ public class SistemaGamificacao {
         return participantes;
     }
 
-    public void adicionarDisciplina(Disciplina disciplina) {
-        disciplinas.add(disciplina);
-    }
-
     public List<Disciplina> getDisciplinas() {
         return disciplinas;
     }
 
-    public void removerDesafio(Desafio desafio) {
-        desafios.remove(desafio);
-    }
-
-    public void removerRecompensa(Recompensa recompensa) {
-        recompensas.remove(recompensa);
-    }
-
-    public void removerParticipante(Participante participante) {
-        participantes.remove(participante);
-    }
-
-    public void removerDisciplina(Disciplina disciplina) {
-        disciplinas.remove(disciplina);
-    }
+    // Remover métodos não utilizados
 }
