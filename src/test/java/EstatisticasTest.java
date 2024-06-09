@@ -1,10 +1,14 @@
 package test.java;
 
-import main.java.*;
+import main.java.Estatisticas;
+import main.java.Participante;
+import main.java.SistemaGamificacao;
+import main.java.Disciplina;
+import main.java.Desafio;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class EstatisticasTest {
     private SistemaGamificacao sistema;
@@ -18,19 +22,25 @@ public class EstatisticasTest {
 
     @Test
     public void testGetTotalDesafiosCompletos() {
-        Participante participante = new Participante(1, "Participante 1");
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Matemática básica");
+        Participante participante = new Participante(1, "João");
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição do desafio 1", 10, disciplina);
+
         sistema.adicionarParticipante(participante);
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
         participante.completarDesafio(desafio);
+
         assertEquals(1, estatisticas.getTotalDesafiosCompletos());
     }
 
     @Test
     public void testGetTotalPontos() {
-        Participante participante = new Participante(1, "Participante 1");
+        Disciplina disciplina = new Disciplina(1, "Matemática", "Matemática básica");
+        Participante participante = new Participante(1, "João");
+        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição do desafio 1", 10, disciplina);
+
         sistema.adicionarParticipante(participante);
-        Desafio desafio = new Desafio(1, "Desafio 1", "Descrição 1", 100, new Disciplina(1, "Matemática", "Descrição"));
         participante.completarDesafio(desafio);
-        assertEquals(100, estatisticas.getTotalPontos());
+
+        assertEquals(10, estatisticas.getTotalPontos());
     }
 }

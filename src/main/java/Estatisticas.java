@@ -5,26 +5,19 @@ package main.java;
  */
 public class Estatisticas {
     private SistemaGamificacao sistema;
-    private int totalDesafiosCompletos;
-    private int totalPontos;
 
     public Estatisticas(SistemaGamificacao sistema) {
         this.sistema = sistema;
     }
 
     public int getTotalDesafiosCompletos() {
-        return totalDesafiosCompletos;
+        return sistema.getParticipantes().stream()
+                .mapToInt(p -> p.getDesafiosCompletos().size())
+                .sum();
     }
 
     public int getTotalPontos() {
-        return totalPontos;
-    }
-
-    public void calcularEstatisticas() {
-        totalDesafiosCompletos = sistema.getParticipantes().stream()
-                .mapToInt(p -> p.getDesafiosCompletos().size())
-                .sum();
-        totalPontos = sistema.getParticipantes().stream()
+        return sistema.getParticipantes().stream()
                 .mapToInt(p -> p.getDesafiosCompletos().stream().mapToInt(Desafio::getPontos).sum())
                 .sum();
     }

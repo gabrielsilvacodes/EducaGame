@@ -2,6 +2,7 @@ package main.java;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Classe principal do sistema de gamificação.
@@ -11,26 +12,37 @@ public class SistemaGamificacao {
     private List<Recompensa> recompensas = new ArrayList<>();
     private List<Participante> participantes = new ArrayList<>();
     private List<Disciplina> disciplinas = new ArrayList<>();
-    private Estatisticas estatisticas;
-
-    public SistemaGamificacao() {
-        this.estatisticas = new Estatisticas(this);
-    }
 
     public void adicionarDesafio(Desafio desafio) {
         desafios.add(desafio);
+    }
+
+    public void removerDesafio(Desafio desafio) {
+        desafios.remove(desafio);
     }
 
     public void adicionarRecompensa(Recompensa recompensa) {
         recompensas.add(recompensa);
     }
 
+    public void removerRecompensa(Recompensa recompensa) {
+        recompensas.remove(recompensa);
+    }
+
     public void adicionarParticipante(Participante participante) {
         participantes.add(participante);
     }
 
+    public void removerParticipante(Participante participante) {
+        participantes.remove(participante);
+    }
+
     public void adicionarDisciplina(Disciplina disciplina) {
         disciplinas.add(disciplina);
+    }
+
+    public void removerDisciplina(Disciplina disciplina) {
+        disciplinas.remove(disciplina);
     }
 
     public List<Desafio> getDesafios() {
@@ -49,11 +61,9 @@ public class SistemaGamificacao {
         return disciplinas;
     }
 
-    public Estatisticas getEstatisticas() {
-        return estatisticas;
-    }
-
-    public void atualizarEstatisticas() {
-        this.estatisticas.calcularEstatisticas();
+    public List<Participante> getRanking() {
+        return participantes.stream()
+                .sorted((p1, p2) -> Integer.compare(p2.getTotalPontos(), p1.getTotalPontos()))
+                .collect(Collectors.toList());
     }
 }
