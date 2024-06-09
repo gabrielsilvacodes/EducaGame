@@ -1,20 +1,30 @@
 package main.java;
 
+/**
+ * Classe que calcula e armazena estatísticas do sistema de gamificação.
+ */
 public class Estatisticas {
-    private final SistemaGamificacao sistema;
+    private SistemaGamificacao sistema;
+    private int totalDesafiosCompletos;
+    private int totalPontos;
 
     public Estatisticas(SistemaGamificacao sistema) {
         this.sistema = sistema;
     }
 
     public int getTotalDesafiosCompletos() {
-        return sistema.getParticipantes().stream()
-                .mapToInt(p -> p.getDesafiosCompletos().size())
-                .sum();
+        return totalDesafiosCompletos;
     }
 
     public int getTotalPontos() {
-        return sistema.getParticipantes().stream()
+        return totalPontos;
+    }
+
+    public void calcularEstatisticas() {
+        totalDesafiosCompletos = sistema.getParticipantes().stream()
+                .mapToInt(p -> p.getDesafiosCompletos().size())
+                .sum();
+        totalPontos = sistema.getParticipantes().stream()
                 .mapToInt(p -> p.getDesafiosCompletos().stream().mapToInt(Desafio::getPontos).sum())
                 .sum();
     }

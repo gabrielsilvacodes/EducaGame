@@ -3,11 +3,14 @@ package main.java;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Classe que representa um Participante no sistema de gamificação.
+ */
 public class Participante implements Desafiavel {
-    private final int id;
-    private final String nome;
-    private final List<Desafio> desafiosCompletos = new ArrayList<>();
-    private final List<Recompensa> recompensas = new ArrayList<>();
+    private int id;
+    private String nome;
+    private List<Desafio> desafiosCompletos = new ArrayList<>();
+    private List<Recompensa> recompensas = new ArrayList<>();
 
     public Participante(int id, String nome) {
         this.id = id;
@@ -45,8 +48,11 @@ public class Participante implements Desafiavel {
         return desafiosCompletos;
     }
 
-    // Método para aceitar um desafio
-    public void aceitarDesafio(Desafio desafio) {
+    // Método para aceitar um desafio e receber recompensa
+    public void aceitarDesafio(Desafio desafio, SistemaGamificacao sistema) {
         desafiosCompletos.add(desafio);
+        // Adicionar lógica para adicionar recompensa com base nos pontos do desafio
+        Recompensa recompensa = sistema.gerarRecompensa(desafio);
+        this.adicionarRecompensa(recompensa);
     }
 }
