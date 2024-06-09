@@ -56,20 +56,4 @@ public class SistemaGamificacao {
     public void atualizarEstatisticas() {
         this.estatisticas.calcularEstatisticas();
     }
-
-    public Recompensa gerarRecompensa(Desafio desafio) {
-        int pontos = desafio.getPontos();
-        TipoRecompensa tipo;
-        if (pontos < 50) {
-            tipo = TipoRecompensa.BRONZE;
-        } else if (pontos < 100) {
-            tipo = TipoRecompensa.PRATA;
-        } else {
-            tipo = TipoRecompensa.OURO;
-        }
-        int idRecompensa = recompensas.size() + 1;
-        Recompensa recompensa = new Recompensa(idRecompensa, "Recompensa para " + desafio.getTitulo(), tipo);
-        adicionarRecompensa(recompensa);
-        return recompensa;
-    }
 }

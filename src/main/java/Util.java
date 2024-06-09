@@ -83,10 +83,22 @@ public class Util {
                             .findFirst()
                             .orElse(null);
 
-                    if (disciplinaDesafio == null) {
-                        System.out.println("Disciplina não encontrada. Desafio não adicionado.");
+                    // Selecionar recompensa para o desafio
+                    System.out.println("Selecione a Recompensa pelo ID:");
+                    for (Recompensa rec : sistema.getRecompensas()) {
+                        System.out.println(rec.getId() + ": " + rec.getDescricao() + " (" + rec.getTipo() + ")");
+                    }
+                    int idRecompensaDesafio = lerInteiro(scanner);
+                    scanner.nextLine(); // Consume newline
+                    Recompensa recompensaDesafio = sistema.getRecompensas().stream()
+                            .filter(r -> r.getId() == idRecompensaDesafio)
+                            .findFirst()
+                            .orElse(null);
+
+                    if (disciplinaDesafio == null || recompensaDesafio == null) {
+                        System.out.println("Disciplina ou Recompensa não encontrada. Desafio não adicionado.");
                     } else {
-                        Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplinaDesafio);
+                        Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplinaDesafio, recompensaDesafio);
                         sistema.adicionarDesafio(desafio);
                         System.out.println("Desafio adicionado com sucesso!");
                     }
@@ -123,9 +135,9 @@ public class Util {
                     break;
                 case 5:
                     System.out.println("Visualizar Estatísticas do Sistema:");
-                    sistema.getEstatisticas().calcularEstatisticas();
-                    System.out.println("Total de Desafios Completos: " + sistema.getEstatisticas().getTotalDesafiosCompletos());
-                    System.out.println("Total de Pontos: " + sistema.getEstatisticas().getTotalPontos());
+                    Estatisticas estatisticas = sistema.getEstatisticas();
+                    System.out.println("Total de Desafios Completos: " + estatisticas.getTotalDesafiosCompletos());
+                    System.out.println("Total de Pontos: " + estatisticas.getTotalPontos());
                     break;
                 case 0:
                     return;
@@ -150,7 +162,7 @@ public class Util {
         }
 
         while (true) {
-            System.out.println("Menu Participante (" + participante.getNome() + "):");
+            System.out.println("Menu Participante:");
             System.out.println("1. Visualizar Desafios Completos");
             System.out.println("2. Visualizar Recompensas");
             System.out.println("3. Aceitar Desafio");
@@ -179,9 +191,8 @@ public class Util {
                             .findFirst()
                             .orElse(null);
                     if (desafio != null) {
-                        participante.aceitarDesafio(desafio, sistema);
+                        participante.aceitarDesafio(desafio);
                         System.out.println("Desafio aceito com sucesso!");
-                        System.out.println("Recompensa Recebida: " + participante.getRecompensas().get(participante.getRecompensas().size() - 1).getDescricao());
                     } else {
                         System.out.println("Desafio não encontrado.");
                     }
@@ -195,13 +206,12 @@ public class Util {
     }
 
     private static int lerInteiro(Scanner scanner) {
-        while (true) {
-            try {
-                return scanner.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Entrada inválida. Por favor, digite um número inteiro.");
-                scanner.nextLine(); // Limpar a entrada inválida
-            }
+        try {
+            return scanner.nextInt();
+        } catch (InputMismatchException e) {
+            System.out.println("Entrada inválida. Digite um número inteiro.");
+            scanner.nextLine(); // Clear the invalid input
+            return -1; // Return an invalid number to indicate the error
         }
     }
 }

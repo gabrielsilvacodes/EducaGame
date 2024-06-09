@@ -20,7 +20,6 @@ public class Participante implements Desafiavel {
     @Override
     public void completarDesafio(Desafio desafio) {
         desafiosCompletos.add(desafio);
-        // Lógica adicional para completar desafio
     }
 
     public void adicionarRecompensa(Recompensa recompensa) {
@@ -43,16 +42,8 @@ public class Participante implements Desafiavel {
         return id;
     }
 
-    // Método adicional para listar todos os desafios do participante
-    public List<Desafio> getDesafios() {
-        return desafiosCompletos;
-    }
-
-    // Método para aceitar um desafio e receber recompensa
-    public void aceitarDesafio(Desafio desafio, SistemaGamificacao sistema) {
+    public void aceitarDesafio(Desafio desafio) {
         desafiosCompletos.add(desafio);
-        // Adicionar lógica para adicionar recompensa com base nos pontos do desafio
-        Recompensa recompensa = sistema.gerarRecompensa(desafio);
-        this.adicionarRecompensa(recompensa);
+        this.adicionarRecompensa(desafio.getRecompensa());
     }
 }
