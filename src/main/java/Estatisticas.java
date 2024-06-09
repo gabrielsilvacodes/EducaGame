@@ -23,7 +23,11 @@ public class Estatisticas {
     }
 
     public void imprimirEstatisticasParticipantes() {
-        System.out.println("Total de desafios completos: " + getTotalDesafiosCompletos());
-        System.out.println("Total de pontos: " + getTotalPontos());
+        System.out.println("Estatísticas dos Participantes:");
+        for (Participante participante : sistema.getParticipantes()) {
+            System.out.println("Participante: " + participante.getNome());
+            System.out.println("Desafios Completos: " + participante.getDesafiosCompletos().size());
+            System.out.println("Total de Pontos: " + participante.getTotalPontos());
+        }
     }
 }

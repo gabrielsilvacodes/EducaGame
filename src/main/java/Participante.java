@@ -20,6 +20,7 @@ public class Participante implements Desafiavel {
     @Override
     public void completarDesafio(Desafio desafio) {
         desafiosCompletos.add(desafio);
+        // Lógica adicional para completar desafio
     }
 
     public void adicionarRecompensa(Recompensa recompensa) {
@@ -46,5 +47,9 @@ public class Participante implements Desafiavel {
         return desafiosCompletos.stream()
                 .mapToInt(Desafio::getPontos)
                 .sum();
+    }
+
+    public void aceitarDesafio(Desafio desafio) {
+        completarDesafio(desafio);
     }
 }
