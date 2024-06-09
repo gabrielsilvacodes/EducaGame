@@ -61,13 +61,12 @@ public class MenuProfessor {
         System.out.print("Descrição: ");
         String descricaoRecompensa = scanner.nextLine();
         System.out.print("Tipo (BRONZE, PRATA, OURO): ");
-        TipoRecompensa tipo;
-        while (true) {
+        TipoRecompensa tipo = null;
+        while (tipo == null) {
             try {
                 tipo = TipoRecompensa.valueOf(scanner.nextLine().toUpperCase());
-                break;
             } catch (IllegalArgumentException e) {
-                System.out.println("Tipo inválido. Digite BRONZE, PRATA ou OURO:");
+                System.out.println("Tipo inválido. Por favor, digite BRONZE, PRATA ou OURO.");
             }
         }
         Recompensa recompensa = new Recompensa(idRecompensa, descricaoRecompensa, tipo);
@@ -86,6 +85,12 @@ public class MenuProfessor {
         String descricao = scanner.nextLine();
         System.out.print("Pontos: ");
         int pontos = MenuPrincipal.obterOpcao(scanner);
+
+        System.out.println("Disciplinas disponíveis:");
+        for (Disciplina disciplina : sistema.getDisciplinas()) {
+            System.out.println("ID: " + disciplina.getId() + ", Nome: " + disciplina.getNome());
+        }
+
         System.out.print("ID da Disciplina: ");
         int disciplinaId = MenuPrincipal.obterOpcao(scanner);
         scanner.nextLine();
@@ -96,7 +101,7 @@ public class MenuProfessor {
         if (disciplinaDoDesafio != null) {
             Desafio desafio = new Desafio(idDesafio, titulo, descricao, pontos, disciplinaDoDesafio);
             sistema.adicionarDesafio(desafio);
-            System.out.println("Desafio adicionado com sucesso!");
+            System.out.println("Desafio adicionado com sucesso à disciplina " + disciplinaDoDesafio.getNome() + "!");
         } else {
             System.out.println("Disciplina não encontrada.");
         }
@@ -111,13 +116,12 @@ public class MenuProfessor {
         String nome = scanner.nextLine();
         Participante participante = new Participante(idParticipante, nome);
         sistema.adicionarParticipante(participante);
-        System.out.println("Participante adicionado com sucesso!");
+        System.out.println("Participante " + nome + " adicionado com sucesso!");
     }
 
     private static void visualizarEstatisticas(SistemaGamificacao sistema) {
         System.out.println("Visualizar Estatísticas do Sistema:");
         Estatisticas estatisticas = new Estatisticas(sistema);
-        System.out.println("Total de desafios completos: " + estatisticas.getTotalDesafiosCompletos());
-        System.out.println("Total de pontos: " + estatisticas.getTotalPontos());
+        estatisticas.imprimirEstatisticasParticipantes();
     }
 }

@@ -20,7 +20,7 @@ public class MenuParticipante {
         }
 
         while (true) {
-            System.out.println("Menu Participante: " + participante.getNome());
+            System.out.println("Menu Participante - " + participante.getNome() + ":");
             System.out.println("1. Visualizar Desafios Completos");
             System.out.println("2. Visualizar Recompensas");
             System.out.println("3. Aceitar Desafio");
@@ -31,70 +31,54 @@ public class MenuParticipante {
 
             switch (opcao) {
                 case 1:
-                    visualizarDesafiosCompletos(participante);
+                    System.out.println("Desafios Completos:");
+                    for (Desafio desafio : participante.getDesafiosCompletos()) {
+                        System.out.println("- " + desafio.getTitulo());
+                    }
                     break;
                 case 2:
-                    visualizarRecompensas(participante);
+                    System.out.println("Recompensas:");
+                    for (Recompensa recompensa : participante.getRecompensas()) {
+                        System.out.println("- " + recompensa.getDescricao() + " (" + recompensa.getTipo() + ")");
+                    }
                     break;
                 case 3:
-                    aceitarDesafio(sistema, participante, scanner);
+                    System.out.println("Digite o ID do desafio a ser aceito: ");
+                    int idDesafio = MenuPrincipal.obterOpcao(scanner);
+                    scanner.nextLine(); // Consume newline
+                    Desafio desafio = sistema.getDesafios().stream()
+                            .filter(d -> d.getId() == idDesafio)
+                            .findFirst()
+                            .orElse(null);
+                    if (desafio != null) {
+                        participante.aceitarDesafio(desafio);
+                        Recompensa recompensa = sistema.getRecompensas().stream()
+                                .filter(r -> r.getId() == idDesafio) // Assume que o ID da recompensa é igual ao do desafio
+                                .findFirst()
+                                .orElse(null);
+                        if (recompensa != null) {
+                            participante.adicionarRecompensa(recompensa);
+                            System.out.println("Desafio aceito e recompensa " + recompensa.getDescricao() + " recebida!");
+                        } else {
+                            System.out.println("Desafio aceito, mas nenhuma recompensa encontrada.");
+                        }
+                    } else {
+                        System.out.println("Desafio não encontrado.");
+                    }
                     break;
                 case 4:
-                    visualizarRanking(sistema);
+                    System.out.println("Ranking de Participantes:");
+                    List<Participante> ranking = sistema.getRanking();
+                    for (int i = 0; i < Math.min(3, ranking.size()); i++) {
+                        Participante p = ranking.get(i);
+                        System.out.println((i + 1) + ". " + p.getNome() + " - " + p.getTotalPontos() + " pontos");
+                    }
                     break;
                 case 0:
                     return;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
-        }
-    }
-
-    private static void visualizarDesafiosCompletos(Participante participante) {
-        System.out.println("Desafios Completos:");
-        for (Desafio desafio : participante.getDesafiosCompletos()) {
-            System.out.println("- " + desafio.getTitulo());
-        }
-    }
-
-    private static void visualizarRecompensas(Participante participante) {
-        System.out.println("Recompensas:");
-        for (Recompensa recompensa : participante.getRecompensas()) {
-            System.out.println("- " + recompensa.getDescricao() + " (" + recompensa.getTipo() + ")");
-        }
-    }
-
-    private static void aceitarDesafio(SistemaGamificacao sistema, Participante participante, Scanner scanner) {
-        System.out.println("Digite o ID do desafio a ser aceito: ");
-        int idDesafio = MenuPrincipal.obterOpcao(scanner);
-        scanner.nextLine(); // Consume newline
-        Desafio desafio = sistema.getDesafios().stream()
-                .filter(d -> d.getId() == idDesafio)
-                .findFirst()
-                .orElse(null);
-        if (desafio != null) {
-            participante.aceitarDesafio(desafio);
-            Recompensa recompensa = sistema.getRecompensas().stream()
-                    .filter(r -> r.getId() == idDesafio) // Assume que o ID da recompensa é igual ao do desafio
-                    .findFirst()
-                    .orElse(null);
-            if (recompensa != null) {
-                participante.adicionarRecompensa(recompensa);
-                System.out.println("Desafio aceito e recompensa " + recompensa.getDescricao() + " recebida!");
-            } else {
-                System.out.println("Desafio aceito, mas nenhuma recompensa encontrada.");
-            }
-        } else {
-            System.out.println("Desafio não encontrado.");
-        }
-    }
-
-    private static void visualizarRanking(SistemaGamificacao sistema) {
-        System.out.println("Ranking de Participantes:");
-        List<Participante> ranking = sistema.getRanking();
-        for (int i = 0; i < Math.min(3, ranking.size()); i++) {
-            Participante p = ranking.get(i);
-            System.out.println((i + 1) + ". " + p.getNome() + " - " + p.getTotalPontos() + " pontos");
         }
     }
 }
